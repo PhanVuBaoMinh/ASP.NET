@@ -51,7 +51,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Cấu hình Identity với ApplicationUser, không yêu cầu xác nhận email
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.SignIn.RequireConfirmedAccount = false)
-    .AddRoles<IdentityRole>() 
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();

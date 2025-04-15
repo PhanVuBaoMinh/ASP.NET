@@ -1,16 +1,17 @@
-﻿@model List<PhanVuBaoMinh.Models.Product>
+﻿@model IEnumerable<PhanVuBaoMinh.Models.Product>
 
 @{
     ViewData["Title"] = "Danh sách sản phẩm";
-
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Danh sách sản phẩm</h2>
+<h1>Danh sách sản phẩm</h1>
 
-<a asp-action="Add" class="btn btn-primary mb-2">Thêm sản phẩm</a>
+<p>
+    <a asp-action="Add" class="btn btn-primary">Thêm sản phẩm</a>
+</p>
 
-<table class="table table-bordered">
+<table class="table">
     <thead>
         <tr>
             <th>Mã</th>
@@ -23,22 +24,38 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var product in Model)
+        @if (Model == null || !Model.Any())
         {
             <tr>
-                <td>@product.Id</td>
-                <td>@product.Name</td>
-                <td>@product.Description</td>
-                <td>@product.Price.ToString("N0") VNĐ</td>
-                <td>
-                    <img src="@product.ImageUrl" width="60" />
-                </td>
-                <td>@product.CategoryName</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-warning">Sửa</a>
-                    <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-sm btn-danger">Xoá</a>
-                </td>
+                <td colspan="7">Không có sản phẩm nào.</td>
             </tr>
+        }
+        else
+        {
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>@product.Price VND</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(product.ImageUrl))
+                        {
+                            <img src="@product.ImageUrl" alt="@product.CategoryName" width="50" />
+                        }
+                        else
+                        {
+                            <span>Không có ảnh</span>
+                        }
+                    </td>
+                    <td>@product.CategoryName</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning">Sửa</a>
+                        <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Xóa</a>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>

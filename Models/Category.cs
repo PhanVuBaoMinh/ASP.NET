@@ -8,5 +8,10 @@ namespace PhanVuBaoMinh.Models
         [Required, StringLength(100)]
         public required string Name { get; set; }
         public List<Product>? Products { get; set; }
+
+        public static implicit operator Category(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

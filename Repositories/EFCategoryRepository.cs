@@ -17,7 +17,10 @@ namespace PhanVuBaoMinh.Repositories
         {
             return await _context.Categories.ToListAsync();
         }
-
+        public Product GetById(int id)
+        {
+            return _context.Products.FirstOrDefault(p => p.Id == id);
+        }
         public async Task<Category> GetByIdAsync(int id)
         {
             return await _context.Categories.FindAsync(id);
@@ -44,6 +47,7 @@ namespace PhanVuBaoMinh.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
         public IEnumerable<Category> GetAllCategories()
         {
             return _context.Categories.ToList();
