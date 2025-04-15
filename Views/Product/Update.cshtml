@@ -1,0 +1,147 @@
+﻿@model PhanVuBaoMinh.Models.Product
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Cập nhật sản phẩm";
+}
+
+<h2>Cập nhật sản phẩm</h2>
+
+<form asp-action="Update" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" name="ExistingImageUrl" value="@Model.ImageUrl" />
+    <input type="hidden" name="CoverImageIndex" id="CoverImageIndex" value="0" />
+
+    <div class="form-group mb-2">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="CategoryId">Danh mục</label>
+        <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control"></select>
+    </div>
+
+    <div class="form-group mb-2">
+        <label>Ảnh sản phẩm hiện tại:</label><br />
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" alt="Ảnh đại diện" class="img-thumbnail mb-2" style="max-height: 150px;" />
+        }
+
+        @if (Model.Images != null && Model.Images.Any())
+        {
+            <div class="mb-2">
+                <label>Ảnh phụ hiện tại:</label><br />
+                <div class="row">
+                    @foreach (var img in Model.Images)
+                    {
+                        <div class="col-md-3 text-center mb-3">
+                            <img src="@img.Url" class="img-thumbnail" style="max-height: 100px;" />
+                            <div class="form-check mt-1">
+                                <input class="form-check-input" type="radio" name="SelectedImageUrl" value="@img.Url"
+                                @(Model.ImageUrl == img.Url ? "checked" : "") />
+                                <label class="form-check-label">Làm ảnh đại diện</label>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-danger mt-1 remove-existing-image"
+                                    data-image-id="@img.Id">
+                                Xóa
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="ProductImages">Tải ảnh mới</label>
+        <input type="file" asp-for="ProductImages" class="form-control" multiple id="imageUpload" />
+        <div id="preview-container" class="d-flex flex-wrap mt-2"></div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
+
+@section Scripts {
+    <script>
+        // Preview ảnh và chọn ảnh đại diện
+        function previewImagesWithCover(input) {
+            const previewContainer = document.getElementById("preview-container");
+            previewContainer.innerHTML = "";
+
+            const files = Array.from(input.files);
+            if (files.length === 0) return;
+
+            files.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const wrapper = document.createElement("div");
+                    wrapper.className = "position-relative me-3 text-center";
+
+                    const img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.className = "img-thumbnail";
+                    img.style.maxHeight = "120px";
+
+                    const label = document.createElement("label");
+                    label.className = "d-block text-center mt-1";
+
+                    const radio = document.createElement("input");
+                    radio.type = "radio";
+                    radio.name = "cover";
+                    radio.value = index;
+                    radio.style.marginRight = "5px";
+                    radio.checked = index === 0;
+
+                    radio.addEventListener("change", function () {
+                        document.getElementById("CoverImageIndex").value = this.value;
+                    });
+
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode("Ảnh đại diện"));
+
+                    wrapper.appendChild(img);
+                    wrapper.appendChild(label);
+
+                    previewContainer.appendChild(wrapper);
+                };
+                reader.readAsDataURL(file);
+            });
+
+            // Gán mặc định ảnh đầu tiên là đại diện
+            document.getElementById("CoverImageIndex").value = 0;
+        }
+
+        document.getElementById("imageUpload").addEventListener("change", function () {
+            previewImagesWithCover(this);
+        });
+
+        // Xóa ảnh phụ cũ
+        document.querySelectorAll(".remove-existing-image").forEach(btn => {
+            btn.addEventListener("click", function () {
+                const imageId = this.dataset.imageId;
+                const hiddenInput = document.createElement("input");
+                hiddenInput.type = "hidden";
+                hiddenInput.name = "ImagesToDelete";
+                hiddenInput.value = imageId;
+                document.forms[0].appendChild(hiddenInput);
+                this.closest(".col-md-3").remove();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,10 @@
+﻿@model int
+@{
+    ViewData["Title"] = "Đặt Hàng Thành Công";
+    Layout = "~/Views/Shared/_StoreLayout.cshtml"; // Sử dụng layout công khai
+}
+
+<h2>Đặt Hàng Thành Công</h2>
+<p>Đơn hàng của bạn với ID <strong>@Model</strong> đã được đặt thành công.</p>
+<p>Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi!</p>
+<a asp-controller="Home" asp-action="Index" class="btn btn-primary">Tiếp Tục Mua Sắm</a>

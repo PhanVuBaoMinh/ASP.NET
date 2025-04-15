@@ -1,0 +1,30 @@
+﻿@model IEnumerable<PhanVuBaoMinh.Models.Category>
+@{
+    ViewData["Title"] = "Quản Lý Danh Mục";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Quản Lý Danh Mục</h1>
+<p>
+    <a asp-action="Add">Thêm Danh Mục Mới</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên Danh Mục</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Sửa</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

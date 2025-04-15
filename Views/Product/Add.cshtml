@@ -1,0 +1,43 @@
+﻿@model PhanVuBaoMinh.Models.Product
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Add Product";
+}
+<h2>Add Product</h2>
+
+<form asp-action="Add" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId">Category</label>
+        <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProductImages">Product Images</label>
+        <input type="file" asp-for="ProductImages" class="form-control" multiple />
+        <small class="form-text text-muted">Chọn ảnh và đánh dấu ảnh đại diện</small>
+
+        <!-- Nơi hiển thị preview -->
+        <div id="preview-container" class="mt-3 d-flex flex-wrap gap-3"></div>
+
+        <!-- Input để lưu ảnh đại diện được chọn -->
+        <input type="hidden" id="CoverImageIndex" name="CoverImageIndex" value="0" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>

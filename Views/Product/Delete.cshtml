@@ -1,0 +1,36 @@
+﻿@model PhanVuBaoMinh.Models.Product
+@{
+    ViewData["Title"] = "Xóa sản phẩm";
+}
+
+<h2>Xác nhận xóa</h2>
+
+<div class="alert alert-warning">
+    Bạn có chắc chắn muốn xóa sản phẩm <strong>@Model.Name</strong>?
+</div>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">Tên sản phẩm:</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">Giá:</dt>
+        <dd class="col-sm-9">@Model.Price</dd>
+
+        <dt class="col-sm-3">Danh mục:</dt>
+        <dd class="col-sm-9">@Model.Category?.Name</dd>
+
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <dt class="col-sm-3">Ảnh:</dt>
+            <dd class="col-sm-9">
+                <img src="@Model.ImageUrl" alt="Ảnh sản phẩm" style="max-height: 150px;" />
+            </dd>
+        }
+    </dl>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>

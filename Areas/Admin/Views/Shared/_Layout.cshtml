@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Kế thừa từ layout chính
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Khu Vực Admin</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" /> <!-- Thêm Bootstrap CSS -->
+    <style>
+        nav {
+            background-color: #f8f9fa;
+            padding: 10px;
+        }
+
+            nav a {
+                margin-right: 15px;
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Khu Vực Admin</a>
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" asp-area="Admin" asp-controller="Admin" asp-action="Index">Bảng Điều Khiển</a>
+                <a class="nav-item nav-link" asp-area="Admin" asp-controller="Product" asp-action="Index">Quản Lý Sản Phẩm</a>
+                <a class="nav-item nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Quản Lý Đơn Hàng</a>
+                <a class="nav-item nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">Quản Lý Danh Mục</a> <!-- Thêm link quản lý danh mục -->
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-3">
+        <main role="main" class="pb-3">
+            @RenderBody() <!-- Hiển thị nội dung trang con -->
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted mt-5">
+        <div class="container">
+            © 2025 - Khu Vực Admin
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    @RenderSection("Scripts", required: false) <!-- Thêm script tùy chỉnh -->
+</body>
+</html>

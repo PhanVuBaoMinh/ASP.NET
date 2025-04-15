@@ -1,0 +1,74 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Đăng Nhập";
+    Layout = null; // Tắt Layout để toàn màn hình
+}
+
+<!-- Load CSS tùy chỉnh -->
+<link rel="stylesheet" href="~/template-login10/style.css" asp-append-version="true" />
+
+<div class="wrapper" style="background-image: url('/template-login10/images/bg.jpg'); min-height: 100vh; background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center;">
+    <div class="inner" style="max-width: 420px; width: 100%; background: rgba(255, 255, 255, 0.95); border-radius: 12px; padding: 40px 30px;">
+        <form method="post">
+            <h3 style="text-align: center; font-weight: bold; color: #333;">Chào Mừng Trở Lại</h3>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger text-center mb-2" role="alert"></div>
+
+            <div class="form-wrapper mb-3">
+                <input asp-for="Input.Email" class="form-control" placeholder="Email" style="color: black; background-color: white;" />
+                <i class="zmdi zmdi-email"></i>
+                <span asp-validation-for="Input.Email" class="text-danger small"></span>
+            </div>
+
+            <div class="form-wrapper mb-3">
+                <input asp-for="Input.Password" type="password" class="form-control" placeholder="Mật khẩu" style="color: black; background-color: white;" />
+                <i class="zmdi zmdi-lock"></i>
+                <span asp-validation-for="Input.Password" class="text-danger small"></span>
+            </div>
+
+            <div class="form-check d-flex justify-content-between mb-3">
+                <label class="form-check-label">
+                    <input asp-for="Input.RememberMe" class="form-check-input" />
+                    Ghi nhớ tôi
+                </label>
+                <a asp-page="./ForgotPassword" class="text-muted">Quên mật khẩu?</a>
+            </div>
+
+            <!-- Nút Đăng Nhập -->
+            <button type="submit" class="btn-login">Đăng Nhập</button>
+
+            @if (Model.ExternalLogins?.Count > 0)
+            {
+                <div class="text-center mt-3 text-dark">— Hoặc Đăng Nhập Bằng —</div>
+                <div class="social-container mt-2">
+                    @foreach (var provider in Model.ExternalLogins)
+                    {
+                        <form method="post" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" style="display: inline;">
+                            <button type="submit" class="btn-social @(provider.Name == "Google" ? "google" : provider.Name == "Facebook" ? "facebook" : "")" name="provider" value="@provider.Name">
+                                @if (provider.Name == "Google")
+                                {
+                                    <i class="zmdi zmdi-google"></i>
+                                }
+                                else if (provider.Name == "Facebook")
+                                {
+                                    <i class="zmdi zmdi-facebook"></i>
+                                }
+                                @provider.DisplayName
+                            </button>
+                        </form>
+                    }
+                </div>
+            }
+
+            <p class="text-center mt-4 text-dark">
+                Chưa có tài khoản?
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-primary fw-bold">Đăng ký tại đây</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

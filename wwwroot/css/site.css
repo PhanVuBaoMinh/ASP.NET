@@ -1,0 +1,95 @@
+﻿html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+/* ===================== */
+/* ==== NAVBAR CSS ==== */
+/* ===================== */
+.navbar-custom {
+    background-color: #10edd5; 
+    border-bottom: 4px solid #2E7D32; /* Viền xanh lá */
+    padding: 10px 20px;
+}
+
+    /* Link trong navbar */
+    .navbar-custom .navbar-nav .nav-link {
+        color: white !important;
+        font-weight: 500;
+        margin-right: 15px;
+    }
+
+        .navbar-custom .navbar-nav .nav-link:hover {
+            color: #f0f0f0 !important;
+            text-decoration: underline;
+        }
+
+    /* Brand (logo trái) */
+    .navbar-custom .navbar-brand {
+        color: black;
+        font-weight: bold;
+    }
+
+/* ===================== */
+/* ==== LOGIN BOX CSS === */
+/* ===================== */
+.login-register-box {
+    background-color: #FFC107;
+    border: 3px solid red;
+    border-radius: 12px;
+    padding: 6px 12px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    display: inline-block;
+}
+
+    /* Áp dụng chung cho a và button */
+    .login-register-box a,
+    .login-register-box button {
+        color: black !important;
+        font-weight: bold;
+        margin: 0 6px;
+        text-decoration: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+        .login-register-box a:hover,
+        .login-register-box button:hover {
+            text-decoration: underline;
+            color: #000;
+        }
+

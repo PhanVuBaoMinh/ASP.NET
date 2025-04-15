@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Chỉnh sửa";
+}
+
+<h2>Chỉnh sửa dữ liệu</h2>
+
+<form method="post">
+    <input type="hidden" name="Id" value="@ViewBag.Id" />
+    <div class="form-group">
+        <label for="Name">Tên mục</label>
+        <input type="text" class="form-control" id="Name" name="Name" value="@ViewBag.Name" />
+    </div>
+    <button type="submit" class="btn btn-success">Cập nhật</button>
+</form>

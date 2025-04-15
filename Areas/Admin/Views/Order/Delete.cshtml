@@ -1,0 +1,28 @@
+﻿@model PhanVuBaoMinh.Models.Order
+@{
+    ViewData["Title"] = "Xóa Đơn Hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Xóa Đơn Hàng</h1>
+<h3>Bạn có chắc muốn xóa đơn hàng này?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">ID</dt>
+        <dd class="col-sm-10">@Model.Id</dd>
+        <dt class="col-sm-2">Người Dùng</dt>
+        <dd class="col-sm-10">@(Model.User != null ? $"{Model.User.FirstName} {Model.User.LastName}" : "N/A")</dd>
+        <dt class="col-sm-2">Ngày Đặt</dt>
+        <dd class="col-sm-10">@Model.OrderDate.ToString("dd/MM/yyyy")</dd>
+        <dt class="col-sm-2">Tổng Tiền</dt>
+        <dd class="col-sm-10">@Model.Total</dd>
+        <dt class="col-sm-2">Trạng Thái</dt>
+        <dd class="col-sm-10">@Model.Status</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a asp-action="Index">Quay lại</a>
+    </form>
+</div>
