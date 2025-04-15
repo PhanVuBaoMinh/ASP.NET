@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using PhanVuBaoMinh.Data;
+using PhanVuBaoMinh.Models;
 using PhanVuBaoMinh.Repositories;
 using PhanVuBaoMinh.Services;
 
@@ -140,3 +141,15 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    if (!context.Categories.Any())
+    {
+        context.Categories.AddRange(
+            new Category { Id = 1, Name = "Danh mục 1" },
+            new Category { Id = 2, Name = "Danh mục 2" }
+        );
+        await context.SaveChangesAsync();
+    }
+}

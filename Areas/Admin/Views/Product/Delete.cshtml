@@ -2,14 +2,58 @@
 
 @{
     ViewData["Title"] = "Xóa sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Xóa sản phẩm</h2>
+<h1>Xóa sản phẩm</h1>
 
-<h4>Bạn có chắc muốn xóa sản phẩm <strong>@Model.Name</strong>?</h4>
+<h3>Bạn có chắc chắn muốn xóa sản phẩm này?</h3>
 
-<form asp-action="DeleteConfirmed" method="post">
-    <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-danger">Xóa</button>
-    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
-</form>
+<div>
+    <h4>Thông tin sản phẩm</h4>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price) VND
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+        <dt class="col-sm-2">
+            Hình ảnh
+        </dt>
+        <dd class="col-sm-10">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" alt="@Model.Name" width="100" />
+            }
+            else
+            {
+                <span>Không có ảnh</span>
+            }
+        </dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>
